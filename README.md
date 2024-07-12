@@ -1,5 +1,6 @@
 # whisper-fastapi
-
+语音转文本
+speech to text
 ### generate [requirements.txt](requirements.txt)
 ```shell
 pip install pipreqs
