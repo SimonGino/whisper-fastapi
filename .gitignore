@@ -1,0 +1,11 @@
+# IntelliJ IDEA
+.idea/
+.idea
+# Compiled Python files
+*.pyc
+
+# Compiled Python modules
+__pycache__/
+
+# Python virtual environment
+venv/
