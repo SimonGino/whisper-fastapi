@@ -10,8 +10,8 @@ from fastapi import File, UploadFile
 from fastapi.responses import StreamingResponse
 from pydub import AudioSegment
 
-from app.core.settings import get_settings
-from app.models.transcription import TranscriptionSegment
+from backend.app.core.settings import get_settings
+from backend.app.models.transcription import TranscriptionSegment
 
 router = APIRouter()
 
@@ -84,7 +84,7 @@ async def transcribe_audio(file_path: str) -> List[TranscriptionSegment]:
             return segments
     except Exception as e:
         logging.error(f"Error in transcribe_audio: {str(e)}")
-        logging.error(f"Response: {response_dict}")
+        # 移除对 response_dict 的引用，因为在异常情况下它可能未定义
         raise HTTPException(status_code=500, detail=f"Error in transcription: {str(e)}")
 
 

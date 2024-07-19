@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.staticfiles import StaticFiles
 
-from app.api.endpoints import audio2text_converter
+from backend.app.api.endpoints import audio2text_converter
 
 app = FastAPI()
 
@@ -20,6 +21,14 @@ app.add_middleware(
 
 # 注册路由
 app.include_router(audio2text_converter.router, prefix="/audio", tags=["audio"])
+
+# 挂载静态文件
+app.mount("/", StaticFiles(directory="/app/frontend/dist", html=True), name="static")
+
+@app.get("/test")
+async def test():
+    return {"message": "Test route working"}
+
 
 if __name__ == "__main__":
     import uvicorn
