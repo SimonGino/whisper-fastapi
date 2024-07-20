@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# 如果存在环境文件，则复制到后端目录
-if [ -f $ENV_FILE ]; then
-    cp $ENV_FILE backend/.env
+# Check if the ENV_FILE exists
+if [ ! -f "$ENV_FILE" ]; then
+    echo "Error: Environment file $ENV_FILE not found!"
+    exit 1
 fi
+
+# Export all variables from ENV_FILE
+export $(grep -v '^#' $ENV_FILE | xargs)
 
 # 启动 FastAPI 应用（包括静态文件服务）
 uvicorn backend.app.main:app --host 0.0.0.0 --port 8000

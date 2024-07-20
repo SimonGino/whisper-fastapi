@@ -48,8 +48,8 @@ RUN chmod +x start.sh
 # Expose port
 EXPOSE 8000
 
-# Set default environment variable
-ENV ENV_FILE=".env"
+# Set a default value for ENV_FILE
+ENV ENV_FILE="/app/.env"
 
 # Start the application
 CMD ["./start.sh"]
