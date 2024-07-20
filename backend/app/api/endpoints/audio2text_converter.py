@@ -10,8 +10,11 @@ from fastapi import File, UploadFile
 from fastapi.responses import StreamingResponse
 from pydub import AudioSegment
 
-from backend.app.core.settings import get_settings
+from backend.app.core.settings import get_settings, settings
 from backend.app.models.transcription import TranscriptionSegment
+
+# 确保在文件顶部设置了日志级别
+logging.basicConfig(level=logging.DEBUG)
 
 router = APIRouter()
 
@@ -42,6 +45,11 @@ def split_audio(input_file: str, max_size_mb: int = 25):
 
 async def transcribe_audio(file_path: str) -> List[TranscriptionSegment]:
     try:
+        # 打印 API Key（注意：不要在生产环境中完整打印 API Key）
+        logging.debug(f"Using API Key: {settings.OPENAI_API_KEY[:5]}...{settings.OPENAI_API_KEY[-5:]}")
+
+        # 打印基础 URL
+        logging.debug(f"Using base URL: {settings.OPENAI_API_BASE_URL}")
         with open(file_path, 'rb') as audio_file:
             response = openai.audio.transcriptions.create(
                 model="whisper-1",
