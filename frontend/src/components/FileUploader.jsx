@@ -18,7 +18,7 @@ const FileUploader = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch('/audio/convert', {
+            const response = await fetch('/api/audio/convert', {
                 method: 'POST',
                 body: formData,
                 headers: {
