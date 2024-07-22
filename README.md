@@ -10,11 +10,5 @@ pipreqs .
 ### Docker examples
  
 ```shell
-docker build -t whisper-fastapi .                            
-docker run -v /absolute/path/to/your/.env:/app/.env -e ENV_FILE=/app/.env -p 8000:8000 whisper-fastapi
+docker-compose up --build
 ```
-
-```shell
-docker run -v $PWD/.env:/app/.env -e ENV_FILE=/app/.env -p 8000:8000 whisper-fastapi
-```
-
